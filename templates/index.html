@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>four-light-years</title>
+{% endblock %}
+{% block body %}
+<style media="screen">
+body, html {
+  height: 100%;
+}
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax_mobile {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.text_on_parallax_mobile {
+  text-align: center;
+  color: white;
+}
+.text_on_parallax {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+</style>
+<div class="parallax_mobile d-lg-none" style="background-image: url('{{img.hdurl}}')">
+  <div class="text_on_parallax_mobile container">
+    <h1>{{img.title}}</h1>
+    <p>{{img.explanation}}</p>
+  </div>
+</div>
+<div class="parallax d-none d-lg-block" style="background-image: url('{{img.hdurl}}')">
+  <div class="text_on_parallax">
+    <h1>{{img.title}}</h1>
+    <p>{{img.explanation}}</p>
+    <p><i class="material-icons">expand_more</i></p>
+  </div>
+</div>
+{% endblock %}
