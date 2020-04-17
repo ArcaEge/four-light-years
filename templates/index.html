@@ -8,14 +8,13 @@ body, html {
   height: 100%;
 }
 .parallax {
-  height: 100%;
+  height: 92%;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 .parallax_mobile {
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -32,18 +31,74 @@ body, html {
   transform: translate(-50%, -50%);
   color: white;
 }
+.launches h2 {
+  color: #54c0d6;
+}
 </style>
-<div class="parallax_mobile d-lg-none" style="background-image: url('{{img.hdurl}}')">
+<div class="parallax_mobile d-lg-none" style="background-image: url('{{img.hdurl}}');vertical-align: bottom">
   <div class="text_on_parallax_mobile container">
     <h1>{{img.title}}</h1>
     <p>{{img.explanation}}</p>
+    <p>
+    <a href="#launches" class="btn" style="color: white">
+    <i class="material-icons">expand_more</i>
+  </a></p>
   </div>
 </div>
-<div class="parallax d-none d-lg-block" style="background-image: url('{{img.hdurl}}')">
+<div class="parallax d-none d-lg-block" style="background-image: url('{{img.hdurl}}');vertical-align: center;">
   <div class="text_on_parallax">
     <h1>{{img.title}}</h1>
     <p>{{img.explanation}}</p>
-    <p><i class="material-icons">expand_more</i></p>
+    <p><a href="#launches" class="btn" style="color: white">
+      <i class="material-icons">expand_more</i>
+    </a></p>
   </div>
 </div>
+<div id="launches" style="height: 5%"></div>
+<div class="launches container" style="text-align: center">
+  <h2 style="margin-top:30px"><i class="fa fa-rocket" style="font-size: 40px"></i><br>Upcoming Launches</h2>
+  {% for i in launch.results %}
+  <div class="jumbotron" style="width:100%; text-align: left">
+    <div class="row">
+      <div class="col-sm-7">
+        <iframe width="100%" height="350px" id="gmap_canvas" src="https://maps.google.com/maps?q={{i.pad.latitude}},{{i.pad.longitude}}&ll={{i.pad.latitude}},{{i.pad.longitude}}&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+      </div>
+      <div class="col-sm-5 inline">
+        <h3>{{i.name}}</h3>
+        <p>
+          <a target="_blank" href="http://maps.google.com/maps?q={{i.pad.latitude}},{{i.pad.longitude}}&ll={{i.pad.latitude}},{{i.pad.longitude}}&z=17" class="btn btn-link">
+          <span class="text-secondary" style="text-align: left">
+            <i class="material-icons" style="font-size: 15px">place</i>{{i.pad.location.name}}
+          </span>
+          </a>
+        </p>
+        {% if i.mission.name != null and i.mission.description != null %}
+        <h4>Mission details</h4>
+        <h5>{{i.mission.name}}</h5>
+        <p>{{i.mission.description}}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<script>
+$(document).ready(function(){
+
+  $("a").on('click', function(event) {
+
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 500, function(){
+
+        window.location.hash = hash;
+      });
+    }
+  });
+});
+</script>
 {% endblock %}
