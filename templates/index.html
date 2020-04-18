@@ -34,6 +34,15 @@ body, html {
 .launches h2 {
   color: #54c0d6;
 }
+#module {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+#module #collapseExample{
+  display: block;
+  height: 7rem;
+  overflow: hidden;
+}
 </style>
 <div class="parallax_mobile d-lg-none" style="background-image: url('{{img.hdurl}}');vertical-align: bottom">
   <div class="text_on_parallax_mobile container">
@@ -66,14 +75,18 @@ body, html {
       <div class="col-sm-5 inline">
         <h3>{{i.name}}</h3>
         <p>
-          <a target="_blank" href="http://maps.google.com/maps?q={{i.pad.latitude}},{{i.pad.longitude}}&ll={{i.pad.latitude}},{{i.pad.longitude}}&z=17" class="btn btn-link">
-          <span class="text-secondary" style="text-align: left">
+          <span class="text-secondary" style="text-align: left;">
+            <a target="_blank" href="http://maps.google.com/maps?q={{i.pad.latitude}},{{i.pad.longitude}}&ll={{i.pad.latitude}},{{i.pad.longitude}}&z=17" class="btn btn-link" style="text-align: left">
             <i class="material-icons" style="font-size: 15px">place</i>{{i.pad.location.name}}
+            </a>
+            {% if i.mission.type != null and i.mission.orbit != null %}<i class="fas fa-satellite"></i>{% endif %}
+            {% if i.mission.type != null %}{{i.mission.type}}{% endif %}
+            {% if i.mission.type != null and i.mission.orbit != null -%}, {%- endif %}
+            {% if i.mission.orbit != null %}{{i.mission.orbit}}{% endif %}
           </span>
-          </a>
         </p>
         {% if i.mission.name != null and i.mission.description != null %}
-        <h4>Mission details</h4>
+        <h4>Mission</h4>
         <h5>{{i.mission.name}}</h5>
         <p>{{i.mission.description}}</p>
         {% endif %}
